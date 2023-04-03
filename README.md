@@ -30,12 +30,12 @@ Build our application in your machine
 
 1. Clone the repository
   ```sh
-  git clone https://github.com/atomix896/Phasor_Noise_Perso.git
+  git clone https://github.com/atomix896/Phasor_Noise_Application.git
   ```
 
 2. Move to the directory
    ```sh
-   cd Phasor_Noise_Perso/
+   cd Phasor_Noise_Application/
    ``` 
 3. Run `main.py`
    ```sh
