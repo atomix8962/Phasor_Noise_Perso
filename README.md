@@ -30,7 +30,7 @@ Build our application in your machine
 
 1. Clone the repository
   ```sh
-  git clone https://github.com/atomix896/Phasor_Noise.git
+  git clone https://github.com/atomix896/Phasor_Noise_Perso.git
   ```
 
 2. Move to the directory
