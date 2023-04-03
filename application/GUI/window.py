@@ -1,61 +1,32 @@
 import tkinter as tk
+import application.GUI.menu
+import application.phasor_noise_generator.generator
+import application.analysis.statistics as stat
+import application.analysis.power_spectrum_density as psd
+import json
+import tkinter as tk
 import random as rd
 import numpy as np
 import matplotlib.pyplot as plt
-import app.phasor.phasor_generator as phasor_generator_module
 from PIL import Image
 from PIL import ImageTk
 import json
-import app.analysis.noise_stat as stat
-import app.analysis.psd as psd
 from skimage import exposure
-
 from copy import deepcopy
 
-
-
-
-class Menu():
-    def __init__(self, gui) -> None:
-        mainmenu  = tk.Menu (relief=tk.RAISED, borderwidth=3)
-        version= tk.Menu(mainmenu, tearoff=0)
-        mainmenu.add_cascade(label= "Version", menu = version)
-        version.add_radiobutton(label="Python")
-        version.add_radiobutton(label="Numpy")
-        version.add_radiobutton(label="JAX")
-        version.entryconfigure("Python", command=gui.change_mode_python)
-        version.entryconfigure("Numpy", command=gui.change_mode_numpy)
-        version.entryconfigure("JAX", command=gui.change_mode_jax)
-        param = tk.Menu(mainmenu, tearoff=0)
-        mainmenu.add_cascade(label= "Paramètres", menu=param)
-        save = tk.Menu(mainmenu, tearoff=0)
-        param.add_cascade(label="Sauvegarde des données", menu=save)
-        save.add_command(label="Sauvegarder la configuration", command=gui.save)
-        visu= tk.Menu(mainmenu, tearoff=0)
-        param.add_cascade(label="Visualisation", menu=visu)
-        visu.add_separator()
-        visu.add_checkbutton(label="Afficher les noyaux", onvalue=1, offvalue=0, variable=gui.visualize)
-        visu.add_separator()
-        gui.master.config(menu = mainmenu)
-        with open('app/config.json') as config_file:
-            config = json.load(config_file)
-        self.config = config
-
-
-class GUI():
+class Window():
     def __init__(self, master, version = "Python") -> None:
         self.master = master
         self.visualize = tk.BooleanVar()
-        self.version = version
         self.master.resizable(height = False, width = False)
-        self.master.title("Générateur de bruit Phasor - Version : " + self.version)
+        self.master.title("Générateur de bruit Phasor - Version : " + version)
         self.master.geometry("1090x720")
         self.currentPage = 0
-        self.gen_mode = "Python"
+        self.gen_mode = version
         self.load_page()
-        self.menu = Menu(self)
+        self.menu = application.GUI.menu.Menu(self)
 
-    def save(self):
+    def save(self): #Save current configuration
         new_config = {
             "x": self.img_size_x.get(),
             "y": self.img_size_y.get(),
@@ -67,15 +38,13 @@ class GUI():
             "min_bandwidth": self.img_bandwidth_min.get(),
             "max_bandwidth": self.img_bandwidth_max.get()
         }
-        with open('app/config.json', 'w') as config_file:
-	        json.dump(new_config, config_file)
+        config_file = open("src/config.json", 'w')
+        json.dump(new_config, config_file)
     
-    
-    
-    def reload(self):
+    def reload(self): #Reload the page
         self.page.destroy()
-        with open('app/config.json') as config_file:
-            config = json.load(config_file)
+        config_file = open("src/config.json")
+        config = json.load(config_file)
         self.config = config
         self.load_page()
 
@@ -197,10 +166,10 @@ class GUI():
         except:
             pass
         try:
-            img = Image.open("tmp/noise.png")
+            img = Image.open("src/tmp/noise.png")
             img.thumbnail((500,500), Image.ANTIALIAS)
-            img.save("tmp/noise_reshape.png")
-            self.img = ImageTk.PhotoImage(Image.open("tmp/noise_reshape.png"))
+            img.save("src/tmp/noise_reshape.png")
+            self.img = ImageTk.PhotoImage(Image.open("src/tmp/noise_reshape.png"))
             self.noise = self.visu_img.create_image(0, 0, image=self.img, anchor="nw", tags="IMG")
         except:
             self.console_text.set("Générer d'abord un nouveau bruit !")
@@ -211,10 +180,10 @@ class GUI():
         except:
             pass
         try:
-            img = Image.open("tmp/noise_psd.png")
+            img = Image.open("src/tmp/noise_psd.png")
             img.thumbnail((500,500), Image.ANTIALIAS)
-            img.save("tmp/noise_psd_reshape.png")
-            self.img = ImageTk.PhotoImage(Image.open("tmp/noise_psd_reshape.png"))
+            img.save("src/tmp/noise_psd_reshape.png")
+            self.img = ImageTk.PhotoImage(Image.open("src/tmp/noise_psd_reshape.png"))
             self.noise = self.visu_img.create_image(0, 0, image=self.img, anchor="nw", tags="IMG")
         except:
             self.console_text.set("Générer d'abord un nouveau bruit !")
@@ -225,10 +194,10 @@ class GUI():
         except:
             pass
         try:
-            img = Image.open("tmp/noise_hist.png")
+            img = Image.open("src/tmp/noise_hist.png")
             img.thumbnail((500,500), Image.ANTIALIAS)
-            img.save("tmp/noise_hist_reshape.png")
-            self.img = ImageTk.PhotoImage(Image.open("tmp/noise_hist_reshape.png"))
+            img.save("src/tmp/noise_hist_reshape.png")
+            self.img = ImageTk.PhotoImage(Image.open("src/tmp/noise_hist_reshape.png"))
             self.noise = self.visu_img.create_image(0, 0, image=self.img, anchor="nw", tags="IMG")
         except:
             self.console_text.set("Générer d'abord un nouveau bruit !")
@@ -273,7 +242,7 @@ class GUI():
             X = np.arange(0,self.size[0])
             Y = np.arange(0, self.size[1])
             X, Y = np.meshgrid(X, Y)
-            self.results = phasor_generator_module.apply_noise_python(X,Y, self.kernels)
+            self.results = application.phasor_noise_generator.generator.apply_noise_python(X,Y, self.kernels)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.axis('off')
             if self.visualize.get() == 1:
@@ -283,23 +252,23 @@ class GUI():
             mean = stat.mean(self.results[0])
             std_gap = stat.std_gap(self.results[0])
             self.console_text.set(f"Le bruit à bien été créé en {self.results[1]/10**6} ms ! \n Moyenne: {mean} \n Ecart-type: {std_gap}")
-            plt.savefig("tmp/noise.png", bbox_inches='tight')
+            plt.savefig("src/tmp/noise.png", bbox_inches='tight')
             plt.close()
             
             mag = psd.PSD(np.array(self.results[0]))
             plt.contourf(X,Y,mag, cmap="Greys")
             plt.axis('off')
-            plt.savefig("tmp/noise_psd.png", bbox_inches='tight')
+            plt.savefig("src/tmp/noise_psd.png", bbox_inches='tight')
             plt.close()
         
 
             hist = exposure.histogram(np.array(self.results[0]))
             plt.plot(hist[1], hist[0])
 
-            plt.savefig("tmp/noise_hist.png", bbox_inches='tight')
+            plt.savefig("src/tmp/noise_hist.png", bbox_inches='tight')
             self.visu_mode_img()
 
-            plt.savefig("tmp/noise_hist.png", bbox_inches='tight')
+            plt.savefig("src/tmp/noise_hist.png", bbox_inches='tight')
             self.visu_mode_img()
             
 
@@ -307,7 +276,7 @@ class GUI():
             X = np.arange(0,self.size[0])
             Y = np.arange(0, self.size[1])
             X, Y = np.meshgrid(X, Y)
-            self.results = phasor_generator_module.apply_noise_numpy(X,Y, deepcopy(self.kernels), self.size)
+            self.results = application.phasor_noise_generator.generator.apply_noise_numpy(X,Y, deepcopy(self.kernels), self.size)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.axis('off')
             if self.visualize.get() == 1:
@@ -317,23 +286,22 @@ class GUI():
             mean = stat.mean(self.results[0])
             std_gap = stat.std_gap(self.results[0])
             self.console_text.set(f"Le bruit à bien été créé en {self.results[1]/10**6} ms !\n Moyenne: {mean}\nEcart-type: {std_gap}")
-            plt.savefig("tmp/noise.png", bbox_inches='tight')
+            plt.savefig("src/tmp/noise.png", bbox_inches='tight')
             plt.close()
 
             mag = psd.PSD(np.array(self.results[0]))
             plt.contourf(X,Y,mag, cmap='Greys')
             plt.axis('off')
-            plt.savefig("tmp/noise_psd.png", bbox_inches='tight')
+            plt.savefig("src/tmp/noise_psd.png", bbox_inches='tight')
             plt.close()
             
             hist = exposure.histogram(np.array(self.results[0]))
             plt.plot(hist[1], hist[0])
 
-            plt.savefig("tmp/noise_hist.png", bbox_inches='tight')
+            plt.savefig("src/tmp/noise_hist.png", bbox_inches='tight')
             self.visu_mode_img()
 
         plt.close()
-
 
     def one_noise_mode(self):
         self.currentPage = 1
@@ -353,7 +321,3 @@ class GUI():
     def change_mode_jax(self):
         self.gen_mode = "JAX"  
         self.reload()  
-    
-
-
-
