@@ -35,7 +35,7 @@ Build our application in your machine
 
 2. Move to the directory
    ```sh
-   cd Phasor_Noise/
+   cd Phasor_Noise_Perso/
    ``` 
 3. Run `main.py`
    ```sh
