@@ -1,12 +1,12 @@
 # Run the GUI
 import tkinter as tk
 import os
-import app.application as Application
+import application.GUI.window as Application
 
 root = tk.Tk()
-gui = Application.GUI(root)
+gui = Application.Window(root)
 root.mainloop()
-PATH = ["tmp/noise_reshape.png", "tmp/noise.png", "tmp/noise_psd.png", "tmp/noise_psd_reshape.png", "tmp/noise_hist.png", "tmp/noise_hist_reshape.png"]
+PATH = ["src/tmp/noise_reshape.png", "src/tmp/noise.png", "src/tmp/noise_psd.png", "src/tmp/noise_psd_reshape.png", "src/tmp/noise_hist.png", "src/tmp/noise_hist_reshape.png"]
 for p in PATH:
     try: 
         os.remove(p)

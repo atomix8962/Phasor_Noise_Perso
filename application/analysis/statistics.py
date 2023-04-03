@@ -24,4 +24,3 @@ std_gap permet de calculer l'écart-type des pixels passés en arguments
 """
 def std_gap(noiseArray:list) -> float:
     return np.std(noiseArray)
-
