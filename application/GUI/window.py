@@ -57,7 +57,7 @@ class Window():
             self.one_image_button = tk.Button(self.page, text="Analyse d'un unique bruit", command=self.one_noise_mode)
             self.one_image_button.grid(row=1, column=0, ipady=50, pady=(200,50))
 
-            self.multi_test_button = tk.Button(self.page, text="Analyse d'une multitude de bruits", command=self.multiple_noises_mode)
+            self.multi_test_button = tk.Button(self.page, text="Test de performances", command=self.test_performance)
             self.multi_test_button.grid(row=1, column=1, ipady=50, pady=(200,50))
 
             self.page.pack()
@@ -157,6 +157,97 @@ class Window():
 
             self.page.pack()
 
+        elif self.currentPage == 2:
+            self.page = tk.Frame(self.master)
+            self.title = tk.Label(self.page, text=f"Test de performances", font=("Times", 20))
+            self.title.grid(row=0, column=0, columnspan=2, pady=(20,70))
+
+            self.visu_img = tk.Canvas(self.page, bg='white', height=500, width=500)
+            self.visu_img.grid(row=1,column=0, rowspan=2, padx=10, sticky="nswe")
+
+            self.config_img = tk.Frame(self.page, relief=tk.GROOVE, bd=3)
+            self.config_img_title = tk.Label(self.config_img, text=f"Configuration des bruits", font=("Times", 15))
+            self.config_img_title.grid(row=0, column=0, columnspan=4, ipady=10)
+            
+            self.img_size_title = tk.Label(self.config_img, text=f"Taille des images :")
+            self.img_size_title.grid(row=1, column=0)
+            self.img_size_x = tk.Entry(self.config_img)
+            self.img_size_x.insert(0, str(self.config["x"]))
+            self.img_size_x.grid(row=1, column=1)
+            self.img_size_label1 = tk.Label(self.config_img, text=f" x ")
+            self.img_size_label1.grid(row= 1, column=2)
+            self.img_size_y = tk.Entry(self.config_img)
+            self.img_size_y.insert(0, str(self.config["y"]))
+            self.img_size_y.grid(row=1, column=3)
+            
+            self.img_nb_ker_title = tk.Label(self.config_img, text=f"Nombre de noyaux :")
+            self.img_nb_ker_title.grid(row=2, column=0)
+            self.img_nb_ker = tk.Entry(self.config_img)
+            self.img_nb_ker.insert(0, str(self.config["nb_ker"]))
+            self.img_nb_ker.grid(row=2, column=1)
+            
+
+            self.img_freq_title = tk.Label(self.config_img, text=f"Fréquences :")
+            self.img_freq_title.grid(row=3, column=0)
+            self.img_freq_min = tk.Entry(self.config_img)
+            self.img_freq_min.insert(0, str(self.config["min_freq"]))
+            self.img_freq_min.grid(row=3, column=1)
+            self.img_freq_label = tk.Label(self.config_img, text=f" < f < ")
+            self.img_freq_label.grid(row= 3, column=2)
+            self.img_freq_max = tk.Entry(self.config_img)
+            self.img_freq_max.insert(0, str(self.config["max_freq"]))
+            self.img_freq_max.grid(row=3, column=3)
+
+            self.img_angle_title = tk.Label(self.config_img, text=f"Angles :")
+            self.img_angle_title.grid(row=4, column=0)
+            self.img_angle_min = tk.Entry(self.config_img)
+            self.img_angle_min.insert(0, str(self.config["min_angle"]))
+            self.img_angle_min.grid(row=4, column=1)
+            self.img_angle_label = tk.Label(self.config_img, text=f" < a < ")
+            self.img_angle_label.grid(row= 4, column=2)
+            self.img_angle_max = tk.Entry(self.config_img)
+            self.img_angle_max.insert(0, str(self.config["max_angle"]))
+            self.img_angle_max.grid(row=4, column=3)
+
+            self.img_bandwidth_title = tk.Label(self.config_img, text=f"Bandes :")
+            self.img_bandwidth_title.grid(row=5, column=0)
+            self.img_bandwidth_min = tk.Entry(self.config_img)
+            self.img_bandwidth_min.insert(0, str(self.config["min_bandwidth"]))
+            self.img_bandwidth_min.grid(row=5, column=1)
+            self.img_bandwidth_label = tk.Label(self.config_img, text=f" < b < ")
+            self.img_bandwidth_label.grid(row= 5, column=2)
+            self.img_bandwidth_max = tk.Entry(self.config_img)
+            self.img_bandwidth_max.insert(0, str(self.config["max_bandwidth"]))
+            self.img_bandwidth_max.grid(row=5, column=3)
+            self.number_label = tk.Label(self.config_img, text=f"Occurences :")
+            self.number_label.grid(row= 6, column=0)
+            self.number = tk.Entry(self.config_img)
+            self.number.insert(0, str(self.config["max_bandwidth"]))
+            self.number.grid(row=6, column=1)
+
+            self.img_gen_button = tk.Button(self.config_img, text="Générer", command=self.validate_entry_performance)
+            self.img_gen_button.grid(row=7, column=0, columnspan=4, pady=(20,0))
+
+
+            self.config_img.grid(row=1,column=1, ipadx=10, ipady=10,  sticky="nwe", pady=(00,0))
+
+            self.console_img = tk.Frame(self.page, relief=tk.GROOVE, bd=3)
+            
+            self.console_img_title = tk.Label(self.console_img, text=f"Console", font=("Times", 15))
+            self.console_img_title.grid(row=0, column=0, ipadx=50, pady=(10,0), sticky="w")
+            
+            self.console_text = tk.StringVar()
+            self.console_text.set("En attente...")
+            self.console_label = tk.Label(self.console_img, textvariable=self.console_text, justify="left")
+            self.console_label.grid(row=1,column=0, sticky="w")
+            self.console_img.grid(row=2, column=1,  sticky="nswe")
+            
+            self.return_button = tk.Button(self.page, text="Retour", command=self.return_menu)
+            self.return_button.grid(row=3, column=1, pady=50, sticky="e")
+
+
+            self.page.pack()
+
         else: 
             print("error")
 
@@ -225,6 +316,27 @@ class Window():
         self.gen_kernels([x,y], nb_ker, [freq_min,freq_max], [angle_min,angle_max], [bandwidth_min, bandwidth_max])
         self.gen_noise()
 
+    def validate_entry_performance(self):
+        try:
+            n = int(self.number.get())
+            x = int(self.img_size_x.get())
+            y = int(self.img_size_x.get())
+            nb_ker = int(self.img_nb_ker.get())
+            freq_min = float(self.img_freq_min.get())
+            freq_max = float(self.img_freq_max.get())    
+            angle_min = float(self.img_angle_min.get())
+            angle_max = float(self.img_angle_max.get())
+            bandwidth_min = float(self.img_bandwidth_min.get())
+            bandwidth_max = float(self.img_bandwidth_max.get())
+            self.console_text.set("Génération du bruit...")
+
+        except:
+            self.console_text.set("Une erreur est survenu vérifier les valeurs entrées...")
+
+        self.gen_kernels([x,y], nb_ker, [freq_min,freq_max], [angle_min,angle_max], [bandwidth_min, bandwidth_max])
+        self.gen_noise()
+        
+
     def gen_kernels(self, size, nb_ker, freq, angle, bandwidth):
         self.size = size
         kernels = list()
@@ -244,6 +356,7 @@ class Window():
             X, Y = np.meshgrid(X, Y)
             self.results = application.phasor_noise_generator.generator.apply_noise_python(X,Y, self.kernels)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
+            plt.colorbar()
             plt.axis('off')
             if self.visualize.get() == 1:
                 for kernel in self.kernels:
@@ -258,6 +371,7 @@ class Window():
             mag = psd.PSD(np.array(self.results[0]))
             plt.contourf(X,Y,mag, cmap="Greys")
             plt.axis('off')
+            plt.colorbar()
             plt.savefig("src/tmp/noise_psd.png", bbox_inches='tight')
             plt.close()
         
@@ -279,6 +393,7 @@ class Window():
             self.results = application.phasor_noise_generator.generator.apply_noise_numpy(X,Y, deepcopy(self.kernels), self.size)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.axis('off')
+            plt.colorbar()
             if self.visualize.get() == 1:
                 for kernel in self.kernels:
                     plt.plot(kernel[0][0],kernel[0][1], color="green", marker="o")
@@ -292,6 +407,7 @@ class Window():
             mag = psd.PSD(np.array(self.results[0]))
             plt.contourf(X,Y,mag, cmap='Greys')
             plt.axis('off')
+            plt.colorbar()
             plt.savefig("src/tmp/noise_psd.png", bbox_inches='tight')
             plt.close()
             
@@ -307,8 +423,9 @@ class Window():
         self.currentPage = 1
         self.reload()
     
-    def multiple_noises_mode(self):
-        pass
+    def test_performance(self):
+        self.currentPage = 2
+        self.reload()
 
     def change_mode_python(self):
         self.gen_mode = "Python"
