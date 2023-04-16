@@ -25,6 +25,10 @@ Build our application in your machine
   ```sh
   python3 pip3 install skimage
   ```
+  or
+  ```sh
+  python3 pip3 install scikit-image
+  ```
 
 ### Installation
 
