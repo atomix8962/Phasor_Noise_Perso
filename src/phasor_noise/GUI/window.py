@@ -1,7 +1,7 @@
-import application.GUI.menu
-import application.phasor_noise_generator.generator
-import application.analysis.statistics as stat
-import application.analysis.power_spectrum_density as psd
+import src.phasor_noise.GUI.menu
+import src.phasor_noise.phasor_noise_generator.generator
+import src.phasor_noise.analysis.statistics as stat
+import src.phasor_noise.analysis.power_spectrum_density as psd
 import tkinter as tk
 import random as rd
 import numpy as np
@@ -11,7 +11,7 @@ from PIL import ImageTk
 import json
 from skimage import exposure
 from copy import deepcopy
-from application.GUI.platform_specific import *
+from src.phasor_noise.GUI.platform_specific import *
 
 class Window():
     def __init__(self, master, version = "Python") -> None:
@@ -23,7 +23,7 @@ class Window():
         self.currentPage = 0
         self.gen_mode = version
         self.load_page()
-        self.menu = application.GUI.menu.Menu(self)
+        self.menu = src.phasor_noise.GUI.menu.Menu(self)
 
     def save(self): #Save current configuration
         new_config = {
@@ -353,7 +353,7 @@ class Window():
             X = np.arange(0,self.size[0])
             Y = np.arange(0, self.size[1])
             X, Y = np.meshgrid(X, Y)
-            self.results = application.phasor_noise_generator.generator.apply_noise_python(X,Y, self.kernels)
+            self.results = src.phasor_noise.phasor_noise_generator.generator.apply_noise_python(X,Y, self.kernels)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.colorbar()
             plt.axis('off')
@@ -389,7 +389,7 @@ class Window():
             X = np.arange(0,self.size[0])
             Y = np.arange(0, self.size[1])
             X, Y = np.meshgrid(X, Y)
-            self.results = application.phasor_noise_generator.generator.apply_noise_numpy(X,Y, deepcopy(self.kernels), self.size)
+            self.results = src.phasor_noise.phasor_noise_generator.generator.apply_noise_numpy(X,Y, deepcopy(self.kernels), self.size)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.axis('off')
             plt.colorbar()
