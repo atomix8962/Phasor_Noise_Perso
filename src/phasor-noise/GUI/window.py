@@ -1,9 +1,7 @@
-import tkinter as tk
 import application.GUI.menu
 import application.phasor_noise_generator.generator
 import application.analysis.statistics as stat
 import application.analysis.power_spectrum_density as psd
-import json
 import tkinter as tk
 import random as rd
 import numpy as np
