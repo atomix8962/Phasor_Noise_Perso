@@ -1,20 +1,20 @@
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
+About The Project
+------------------
 We created a Phasor noise generator with a graphical interface to visualize how the different parameters affect the noise created.
 
-<!-- GETTING STARTED -->
-## Getting Started
+Getting Started
+-----------------
 Build our application in your machine
 
-### Prerequisites
+Dependencies and prerequisites
+-------------
 
 * Numpy
-  ```sh
+  ```
   python3 pip3 install numpy
   ```
 * Tkinter
-  ```sh
+  ```
   python3 pip3 install tkinter
   ```
 * Matplotlib
@@ -30,7 +30,8 @@ Build our application in your machine
   python3 pip3 install scikit-image
   ```
 
-### Installation
+Installation
+-------------
 
 1. Clone the repository
   ```sh
@@ -46,23 +47,22 @@ Build our application in your machine
    python3 main.py
    ```
 
-<!-- USAGE EXAMPLES -->
-## Usage
-
+Usage
+---------
 You can now use our Phasor noise generator. 
 
 
 
 
-<!-- LICENSE -->
-## License
+License
+-----------
 
 Distributed under the GNU License. See `LICENSE.txt` for more information.
 
-
-## Authors
-* Alexis L.
-* Etienne T.
-* Paul M.
-* Guillaume H.
-* Paul B.
+Authors
+-----------
+* Alexis Le Meur
+* Etienne Tachouzin
+* Paul Martin
+* Guillaume Hisleur
+* Paul Bedrossian
