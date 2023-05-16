@@ -10,42 +10,29 @@ Dependencies and prerequisites
 -------------
 
 * Numpy
-  ```
-  python3 pip3 install numpy
-  ```
+  .. code:: console
+  pip install numpy
 * Tkinter
-  ```
-  python3 pip3 install tkinter
-  ```
+  .. code:: console
+  pip install tkinter
 * Matplotlib
-  ```sh
-  python3 pip3 install matplotlib
-  ```
+  .. code:: console
+  pip install matplotlib
 * Skimage
-  ```sh
-  python3 pip3 install skimage
-  ```
-  or
-  ```sh
-  python3 pip3 install scikit-image
-  ```
+  .. code:: console
+  pip install skimage
+  pip install scikit-image
 
 Installation
 -------------
 
 1. Clone the repository
-  ```sh
-  git clone https://github.com/atomix896/Phasor_Noise_Application.git
-  ```
+.. code:: console
+   git clone https://github.com/etachouzin/phasor_noise.git
 
-2. Move to the directory
-   ```sh
-   cd Phasor_Noise_Application/
-   ``` 
-3. Run `main.py`
-   ```sh
-   python3 main.py
-   ```
+3. Run phasor_noise
+.. code:: console
+    python phasor_noise
 
 Usage
 ---------
