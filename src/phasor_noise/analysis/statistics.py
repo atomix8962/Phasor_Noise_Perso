@@ -6,8 +6,6 @@ Auteur :        Paul M.
 Statut :        Fonctionne en v1.0 (vérifié & relu)
 """
 # Section des imports
-# PIL sert pour analyser une image
-from PIL import Image
 # Numpy sert a faciliter l'utilisation de tableau sous python
 import numpy as np
 
