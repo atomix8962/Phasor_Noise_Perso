@@ -11,15 +11,19 @@ Dependencies and prerequisites
 
 * Numpy
 .. code:: console
-    pip install numpy
+
+   pip install numpy
 * Tkinter
 .. code:: console
+
     pip install tkinter
 * Matplotlib
 .. code:: console
+
     pip install matplotlib
 * Skimage
 .. code:: console
+
     pip install skimage
     pip install scikit-image
 
@@ -27,11 +31,15 @@ Installation
 -------------
 
 1. Clone the repository
+
 .. code:: console
+
    git clone git@github.com:etachouzin/phasor_noise.git
 
 3. Run phasor_noise
+
 .. code:: console
+
     python phasor_noise
 
 Usage
