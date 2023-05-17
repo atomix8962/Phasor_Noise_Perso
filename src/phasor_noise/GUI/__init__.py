@@ -10,7 +10,7 @@ from PIL import ImageTk
 import json
 from skimage import exposure
 from copy import deepcopy
-from src.phasor_noise.GUI.platform_specific import *
+from phasor_noise.GUI.platform_specific import *
 
 class Window():
     def __init__(self, master, version = "Python") -> None:
@@ -22,7 +22,7 @@ class Window():
         self.currentPage = 0
         self.gen_mode = version
         self.load_page()
-        self.menu = src.phasor_noise.GUI.menu.Menu(self)
+        self.menu = phasor_noise.GUI.menu.Menu(self)
 
     def save(self): #Save current configuration
         new_config = {
@@ -352,7 +352,7 @@ class Window():
             X = np.arange(0,self.size[0])
             Y = np.arange(0, self.size[1])
             X, Y = np.meshgrid(X, Y)
-            self.results = src.phasor_noise.phasor_noise_generator.apply_noise_python(X, Y, self.kernels)
+            self.results = phasor_noise.phasor_noise_generator.apply_noise_python(X, Y, self.kernels)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.colorbar()
             plt.axis('off')
@@ -388,7 +388,7 @@ class Window():
             X = np.arange(0,self.size[0])
             Y = np.arange(0, self.size[1])
             X, Y = np.meshgrid(X, Y)
-            self.results = src.phasor_noise.phasor_noise_generator.apply_noise_numpy(X, Y, deepcopy(self.kernels), self.size)
+            self.results = phasor_noise.phasor_noise_generator.apply_noise_numpy(X, Y, deepcopy(self.kernels), self.size)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.axis('off')
             plt.colorbar()
