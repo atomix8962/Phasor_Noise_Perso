@@ -1,5 +1,5 @@
-upload-test:
-	twine upload --repository testpypi dist/*
+upload:
+	twine upload --repository pypi dist/*
 build:
 	pip install -r requirements.txt
 	python -m pip install --upgrade build
