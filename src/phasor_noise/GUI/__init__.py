@@ -1,6 +1,6 @@
-import src.phasor_noise.GUI.menu
-import src.phasor_noise.phasor_noise_generator
-import src.phasor_noise.analysis as analysis
+import phasor_noise.GUI.menu
+import phasor_noise.phasor_noise_generator
+import phasor_noise.analysis as analysis
 import tkinter as tk
 import random as rd
 import numpy as np
