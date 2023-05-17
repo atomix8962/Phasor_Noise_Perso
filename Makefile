@@ -1,6 +1,5 @@
-
-install:
-	pip install phasor_noise --no-deps
+upload-test:
+	twine upload --repository testpypi dist/*
 build:
 	pip install -r requirements.txt
 	python -m pip install --upgrade build
