@@ -1,2 +1,5 @@
 __pycache__
 .idea
+_build
+dist
+Phasor_Noise.egg-info
