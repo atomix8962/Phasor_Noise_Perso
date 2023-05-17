@@ -1,7 +1,7 @@
-def main():
+def default_window():
     import tkinter as tk
     import os
-    import src.phasor_noise.GUI.window as app
+    import src.phasor_noise.GUI as app
 
     root = tk.Tk()
     gui = app.Window(root)
