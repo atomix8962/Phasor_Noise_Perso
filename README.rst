@@ -22,13 +22,12 @@ You can now use Phasor-Noise and launch the default window setup.
 
 
 
-
 License
 -----------
 
 Distributed under the GNU License.
 
-Authors and maintainers
+Authors
 -----------
 * Alexis Le Meur
 * Etienne Tachouzin
