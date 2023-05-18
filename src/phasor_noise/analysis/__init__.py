@@ -3,9 +3,8 @@ import numpy as np
 
 def PSD(signal: list) -> np.array:
     """
-    The Power Spectral Density PSD is defined by :
-    P = |x̂(f)|² with x̂ the Fourier Transform of the Signal
-
+    PSD = |x̂(f)|² with x̂ the Fourier Transform of the Signal scale by the time of integration
+    :param signal : a ndarray or list containing the evaluated value by a function
     return : the Power Spectral Density of a signal
     """
     f = np.fft.fft2(signal)
