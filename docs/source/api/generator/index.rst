@@ -4,7 +4,7 @@
 Phasor Noise Generator
 ======================
 
-.. automodule:: phasor_noise.phasor_noise_generator
+.. automodule:: phasor_noise.generator
    :members:
 
 .. toctree::
