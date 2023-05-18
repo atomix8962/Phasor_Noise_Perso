@@ -30,6 +30,3 @@ About the project
 -----------------
 Phasor noise is a package providing a generator of procedural phasor noise. |br|
 It claims a graphical interface to visualize how parameters change the noise created.
-
-Project Index
---------------
