@@ -6,9 +6,9 @@ def default_window():
     root = tk.Tk()
     gui = app.Window(root)
     root.mainloop()
-    PATH = ["src/tmp/noise_reshape.png", "src/tmp/noise.png", "src/tmp/noise_psd.png", "src/tmp/noise_psd_reshape.png",
+    path = ["src/tmp/noise_reshape.png", "src/tmp/noise.png", "src/tmp/noise_psd.png", "src/tmp/noise_psd_reshape.png",
             "src/tmp/noise_hist.png", "src/tmp/noise_hist_reshape.png"]
-    for p in PATH:
+    for p in path:
         try:
             os.remove(p)
         except:
