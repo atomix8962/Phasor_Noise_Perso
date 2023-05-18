@@ -55,8 +55,15 @@ class Window:
         Reload the page
         """
         self.page.destroy()
-        config_file = open(f"{config_directory()}/config.json")
-        config = json.load(config_file)
+        path = f"{config_directory()}/config.json"
+        if os.path.exists(path):
+            config_file = open(f"{config_directory()}/config.json", "r")
+            config = json.load(config_file)
+        else:
+            config_file = open(f"{config_directory()}/config.json", "w")
+            config = {"x": "100", "y": "100", "nb_ker": "10", "min_freq": "1", "max_freq": "1", "min_angle": "-1.57",
+                      "max_angle": "1.57", "min_bandwidth": "0.1", "max_bandwidth": "0.1"}
+            json.dump(config, config_file)
         self.config = config
         self.load_page()
 
