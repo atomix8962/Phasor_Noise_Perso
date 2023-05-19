@@ -1,4 +1,4 @@
-.. _generator:
+.. _gui:
 
 ===
 GUI
@@ -9,5 +9,6 @@ GUI
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
+
+    menu.rst
 
