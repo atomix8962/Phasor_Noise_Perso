@@ -1,5 +1,5 @@
-import phasor_noise.GUI.menu
-import phasor_noise.generator
+import phasor_noise.GUI.menu as menu
+import phasor_noise.generator as generator
 import phasor_noise.analysis as analysis
 import tkinter as tk
 import random as rd
@@ -31,7 +31,7 @@ class Window:
         self.currentPage = 0
         self.gen_mode = version
         self.load_page()
-        self.menu = phasor_noise.GUI.menu.Menu(self)
+        self.menu = menu.Menu(self)
 
     def save(self):
         """
@@ -392,7 +392,7 @@ class Window:
             X = np.arange(0, self.size[0])
             Y = np.arange(0, self.size[1])
             X, Y = np.meshgrid(X, Y)
-            self.results = phasor_noise.phasor_noise_generator.apply_noise_python(X, Y, self.kernels)
+            self.results = generator.apply_noise_python(X, Y, self.kernels)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.colorbar()
             plt.axis('off')
@@ -428,7 +428,7 @@ class Window:
             X = np.arange(0, self.size[0])
             Y = np.arange(0, self.size[1])
             X, Y = np.meshgrid(X, Y)
-            self.results = phasor_noise.phasor_noise_generator.apply_noise_numpy(X, Y, deepcopy(self.kernels),
+            self.results = generator.apply_noise_numpy(X, Y, deepcopy(self.kernels),
                                                                                  self.size)
             plt.contourf(X, Y, self.results[0], cmap='Greys')
             plt.axis('off')
