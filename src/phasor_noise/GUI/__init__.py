@@ -11,6 +11,7 @@ import json
 from skimage import exposure
 from copy import deepcopy
 from phasor_noise.GUI.platform_specific import *
+import os
 
 
 class Window:
