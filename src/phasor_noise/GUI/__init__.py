@@ -1,5 +1,5 @@
 import phasor_noise.GUI.menu
-import phasor_noise.phasor_noise_generator
+import phasor_noise.generator
 import phasor_noise.analysis as analysis
 import tkinter as tk
 import random as rd
