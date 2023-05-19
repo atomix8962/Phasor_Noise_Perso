@@ -1,10 +1,11 @@
+import tkinter as tk
+import os
+from phasor_noise.GUI import Window
+
 def default_window():
     """
     Easy first window to manipulate the phasor noise and observe it
     """
-    import tkinter as tk
-    import os
-    from src.phasor_noise.GUI import Window
 
     root = tk.Tk()
     Window(root)
