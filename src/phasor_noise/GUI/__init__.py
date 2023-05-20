@@ -10,7 +10,7 @@ from PIL import ImageTk
 import json
 from skimage import exposure
 from copy import deepcopy
-from phasor_noise.GUI.platform_specific import *
+from phasor_noise.GUI.directory import *
 import os
 
 
@@ -48,7 +48,7 @@ class Window:
             "min_bandwidth": self.img_bandwidth_min.get(),
             "max_bandwidth": self.img_bandwidth_max.get()
         }
-        config_file = open(f"{config_directory()}/config.json", 'w')
+        config_file = open(f"{config_directory}/config.json", 'w')
         json.dump(new_config, config_file)
 
     def reload(self):
@@ -56,12 +56,12 @@ class Window:
         Reload the page
         """
         self.page.destroy()
-        path = f"{config_directory()}/config.json"
+        path = f"{config_directory}/config.json"
         if os.path.exists(path):
-            config_file = open(f"{config_directory()}/config.json", "r")
+            config_file = open(f"{config_directory}/config.json", "r")
             config = json.load(config_file)
         else:
-            config_file = open(f"{config_directory()}/config.json", "w")
+            config_file = open(f"{config_directory}/config.json", "w")
             config = {"x": "100", "y": "100", "nb_ker": "10", "min_freq": "1", "max_freq": "1", "min_angle": "-1.57",
                       "max_angle": "1.57", "min_bandwidth": "0.1", "max_bandwidth": "0.1"}
             json.dump(config, config_file)
@@ -278,10 +278,10 @@ class Window:
         except:
             pass
         try:
-            img = Image.open(f"{images_directory()}/noise.png")
+            img = Image.open(f"{images_directory}/noise.png")
             img.thumbnail((500, 500), Image.ANTIALIAS)
-            img.save(f"{images_directory()}/noise_reshape.png")
-            self.img = ImageTk.PhotoImage(Image.open(f"{images_directory()}/noise_reshape.png"))
+            img.save(f"{images_directory}/noise_reshape.png")
+            self.img = ImageTk.PhotoImage(Image.open(f"{images_directory}/noise_reshape.png"))
             self.noise = self.visu_img.create_image(0, 0, image=self.img, anchor="nw", tags="IMG")
         except:
             self.console_text.set("Générer d'abord un nouveau bruit !")
@@ -295,10 +295,10 @@ class Window:
         except:
             pass
         try:
-            img = Image.open(f"{images_directory()}/noise_psd.png")
+            img = Image.open(f"{images_directory}/noise_psd.png")
             img.thumbnail((500, 500), Image.ANTIALIAS)
-            img.save(f"{images_directory()}/noise_psd_reshape.png")
-            self.img = ImageTk.PhotoImage(Image.open(f"{images_directory()}/noise_psd_reshape.png"))
+            img.save(f"{images_directory}/noise_psd_reshape.png")
+            self.img = ImageTk.PhotoImage(Image.open(f"{images_directory}/noise_psd_reshape.png"))
             self.noise = self.visu_img.create_image(0, 0, image=self.img, anchor="nw", tags="IMG")
         except:
             self.console_text.set("Générer d'abord un nouveau bruit !")
@@ -312,10 +312,10 @@ class Window:
         except:
             pass
         try:
-            img = Image.open(f"{images_directory()}/noise_hist.png")
+            img = Image.open(f"{images_directory}/noise_hist.png")
             img.thumbnail((500, 500), Image.ANTIALIAS)
-            img.save(f"{images_directory()}/noise_hist_reshape.png")
-            self.img = ImageTk.PhotoImage(Image.open(f"{images_directory()}/noise_hist_reshape.png"))
+            img.save(f"{images_directory}/noise_hist_reshape.png")
+            self.img = ImageTk.PhotoImage(Image.open(f"{images_directory}/noise_hist_reshape.png"))
             self.noise = self.visu_img.create_image(0, 0, image=self.img, anchor="nw", tags="IMG")
         except:
             self.console_text.set("Générer d'abord un nouveau bruit !")
@@ -405,23 +405,23 @@ class Window:
             std_gap = analysis.std_gap(self.results[0])
             self.console_text.set(
                 f"Le bruit à bien été créé en {self.results[1] / 10 ** 6} ms ! \n Moyenne: {mean} \n Ecart-type: {std_gap}")
-            plt.savefig(f"{images_directory()}/noise.png", bbox_inches='tight')
+            plt.savefig(f"{images_directory}/noise.png", bbox_inches='tight')
             plt.close()
 
             mag = analysis.PSD(np.array(self.results[0]))
             plt.contourf(X, Y, mag, cmap="Greys")
             plt.axis('off')
             plt.colorbar()
-            plt.savefig(f"{images_directory()}/noise_psd.png", bbox_inches='tight')
+            plt.savefig(f"{images_directory}/noise_psd.png", bbox_inches='tight')
             plt.close()
 
             hist = exposure.histogram(np.array(self.results[0]))
             plt.plot(hist[1], hist[0])
 
-            plt.savefig(f"{images_directory()}/noise_hist.png", bbox_inches='tight')
+            plt.savefig(f"{images_directory}/noise_hist.png", bbox_inches='tight')
             self.visu_mode_img()
 
-            plt.savefig(f"{images_directory()}/noise_hist.png", bbox_inches='tight')
+            plt.savefig(f"{images_directory}/noise_hist.png", bbox_inches='tight')
             self.visu_mode_img()
 
         elif self.gen_mode == "Numpy":
@@ -442,20 +442,20 @@ class Window:
             std_gap = analysis.std_gap(self.results[0])
             self.console_text.set(
                 f"Le bruit à bien été créé en {self.results[1] / 10 ** 6} ms !\n Moyenne: {mean}\nEcart-type: {std_gap}")
-            plt.savefig(f"{images_directory()}/noise.png", bbox_inches='tight')
+            plt.savefig(f"{images_directory}/noise.png", bbox_inches='tight')
             plt.close()
 
             mag = analysis.PSD(np.array(self.results[0]))
             plt.contourf(X, Y, mag, cmap='Greys')
             plt.axis('off')
             plt.colorbar()
-            plt.savefig(f"{images_directory()}/noise_psd.png", bbox_inches='tight')
+            plt.savefig(f"{images_directory}/noise_psd.png", bbox_inches='tight')
             plt.close()
 
             hist = exposure.histogram(np.array(self.results[0]))
             plt.plot(hist[1], hist[0])
 
-            plt.savefig(f"{images_directory()}/noise_hist.png", bbox_inches='tight')
+            plt.savefig(f"{images_directory}/noise_hist.png", bbox_inches='tight')
             self.visu_mode_img()
 
         plt.close()
