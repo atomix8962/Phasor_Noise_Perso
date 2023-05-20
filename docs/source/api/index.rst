@@ -15,5 +15,5 @@ Discovery
 ---------
 You can use our built to discover our package
 
-.. autoclass:: phasor_noise.default_window
-   :membersEA:
+.. automodule:: phasor_noise
+   :members:
