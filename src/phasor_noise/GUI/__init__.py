@@ -409,7 +409,7 @@ class Window:
             plt.close()
 
             mag = analysis.PSD(np.array(self.results[0]))
-            plt.contourf(X, Y, mag, cmap="Greys")
+            plt.contourf(X, Y, mag, cmap="Greys_r")
             plt.axis('off')
             plt.colorbar()
             plt.savefig(f"{images_directory}/noise_psd.png", bbox_inches='tight')
