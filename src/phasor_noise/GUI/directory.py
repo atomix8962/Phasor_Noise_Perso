@@ -1,4 +1,16 @@
 from pathlib import Path
 import os
-config_directory = Path(os.path.expanduser("~/phasor-generator/config"))
-images_directory = Path(os.path.expanduser("~/phasor-generator/images"))
+
+
+def config_directory():
+    path = Path(os.path.expanduser("~/.phasor-generator/config"))
+    if not path.exists():
+        path.mkdir(parents=True)
+    return path
+
+
+def images_directory():
+    path = Path(os.path.expanduser("~/.phasor-generator/images"))
+    if not path.exists():
+        path.mkdir(parents=True)
+    return path
